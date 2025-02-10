@@ -16,7 +16,10 @@ body,
 }
 
 .mixmotion-player {
-  height: 100vh;
+  height: 100%; // Changed from 100vh to 100% for scalability
+  display: flex;
+  flex-direction: column;
+
   > * {
     position: absolute;
     top: 0;
@@ -31,8 +34,9 @@ body,
     transform: translateY(100px);
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
+
     &.show {
-      transform: translateY(0px);
+      transform: translateY(0);
       opacity: 1;
     }
   }
