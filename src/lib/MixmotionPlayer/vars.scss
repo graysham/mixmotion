@@ -1,21 +1,36 @@
-// Updated vars.scss for scalable design
-$base-font-size: 16px; // Base font size for rem calculations
-$spacing-unit: 1rem; // Use rem units for spacing to ensure scalability
-$border-radius: 0.5rem;
-$transition-speed: 0.3s;
+@use "sass:math"; // Import the math module for division
 
-$color-primary: #3498db;
-$color-secondary: #2ecc71;
-$color-accent: #e74c3c;
-$color-text: #333;
-$color-background: #f4f4f4;
+$base-font-size: 16px; // 1rem = 16px
 
-// Media queries for responsiveness
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
+@function responsive-size($px-size) {
+  @return math.div($px-size, $base-font-size) * 1rem;
+}
 
-@mixin responsive-font($min-size, $max-size) {
-  font-size: clamp($min-size, 2.5vw, $max-size);
+$buttons-height: responsive-size(60px);
+$padding-tb: responsive-size(40px);
+$padding-lr: responsive-size(50px);
+$large-screen-size: 1600px;
+$medium-screen-size: 1200px;
+$small-screen-size: 600px;
+
+@keyframes fadeSlideInAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideOutAnim {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
 }
