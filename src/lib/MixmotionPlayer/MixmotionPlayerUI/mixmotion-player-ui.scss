@@ -10,13 +10,13 @@
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem; // Using rem for padding
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.4s 1s;
 
   @media screen and (min-width: $large-screen-size) {
-    padding: 4rem 2rem;
+    padding: 4rem 2rem; // Using rem for padding
   }
 
   * {
@@ -64,12 +64,15 @@
     .mixmotion-player-ui__cover {
       opacity: 1;
     }
+
     .mixmotion-player-ui__content {
       transform: translateY(25%);
+
       @media screen and (max-width: $small-screen-size) {
         transform: translateY(18%);
       }
     }
+
     .buttons {
       opacity: 1;
     }
@@ -77,6 +80,7 @@
 
   &.inactive-mode {
     cursor: none;
+
     .buttons,
     .progress-bar,
     .mixmotion-player-ui__image,
@@ -85,29 +89,36 @@
       opacity: 0;
       pointer-events: none;
     }
+
     .mixmotion-player-ui__content,
     .mixmotion-player-ui__image {
       transform: translateY(75%);
       text-align: left;
+
       @media screen and (min-width: $small-screen-size) {
         transform: translateY(70%);
+
         .metadata--title {
           opacity: 0.9;
           transform: scale(0.8) translateY(30%);
         }
+
         .metadata--subTitle {
           transform: scale(0.9);
           opacity: 0.9;
+
           .focused:before {
             border-color: transparent;
           }
         }
       }
+
       .custom-link {
         color: rgba(255, 255, 255, 0.9);
         text-shadow: #00000088 1px 0 6px;
         background-color: transparent;
       }
+
       &.fade-out {
         .metadata--title,
         .metadata--subTitle {
@@ -119,19 +130,21 @@
 
   &__image {
     position: relative;
-    margin: 0 auto 2rem;
-    height: 40%;
+    margin: 0 auto 2rem; // Using rem for margin
+    height: 40%; // Percentage-based height
     border: 1px solid rgba(200, 200, 200, 0.5);
     transition: transform 0.3s;
     z-index: 1;
     user-select: none;
     cursor: pointer;
+
     @media (orientation: portrait) {
-      height: 35%;
-      margin: 0 auto 2rem;
+      height: 35%; // Percentage-based height
+      margin: 0 auto 2rem; // Using rem for margin
     }
+
     @media screen and (max-width: $small-screen-size) and (orientation: portrait) {
-      height: 30%;
+      height: 30%; // Percentage-based height
     }
   }
 }

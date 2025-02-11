@@ -1,6 +1,6 @@
 :root {
-  --app-height: 100%;
-  --app-width: 100%;
+  --app-height: 100%; // Changed from 100vh to 100%
+  --app-width: 100%; // Changed from 100vw to 100%
 }
 
 .dynamic-backdrop {
@@ -10,11 +10,16 @@
   display: block;
   width: 100%;
   height: 100%;
+
   * {
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
     -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
     transform: translate3d(0, 0, 0);
+    transform: translateZ(0);
   }
 
   &__canvas,
@@ -30,10 +35,13 @@
 
   &__video {
     opacity: 0;
-    transition: opacity 1.5s 0.5s;
+    transition: opacity;
+
     &.visible {
       opacity: 1;
+      transition: opacity 1.5s 0.5s;
     }
+
     &:not(.visible) {
       opacity: 0;
       transition-duration: 0.4s;
@@ -78,6 +86,7 @@
 
     &.static {
       @include staticBackground;
+
       @media (orientation: landscape) {
         width: 100%;
         height: auto;

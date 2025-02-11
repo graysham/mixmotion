@@ -1,22 +1,14 @@
-@use "sass:math"; // Import the math module for division
-
-$base-font-size: 16px; // 1rem = 16px
-
-@function responsive-size($px-size) {
-  @return math.div($px-size, $base-font-size) * 1rem;
-}
-
-$buttons-height: responsive-size(60px);
-$padding-tb: responsive-size(40px);
-$padding-lr: responsive-size(50px);
-$large-screen-size: 1600px;
-$medium-screen-size: 1200px;
-$small-screen-size: 600px;
+$buttons-height: 3.75rem; // Scaled from 60px assuming 16px base font
+$padding-tb: 2.5rem; // 40px to rem
+$padding-lr: 3.125rem; // 50px to rem
+$large-screen-size: 100rem; // 1600px / 16px
+$medium-screen-size: 75rem; // 1200px / 16px
+$small-screen-size: 37.5rem; // 600px / 16px
 
 @keyframes fadeSlideInAnim {
   0% {
     opacity: 0;
-    transform: translateY(-4rem);
+    transform: translateY(-4.375rem); // -70px (relative to base font size)
   }
   100% {
     opacity: 1;
@@ -31,6 +23,6 @@ $small-screen-size: 600px;
   }
   100% {
     opacity: 0;
-    transform: translateY(-4rem);
+    transform: translateY(-4.375rem); // -70px (relative to base font size)
   }
 }
