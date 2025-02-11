@@ -1,31 +1,29 @@
 @import "../vars.scss";
 
-:root {
-  --app-height: 100%;
-  --app-width: 100%;
-}
-
 .mixmotion-player-ui {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: 2rem 1rem; // Using rem for padding
+  padding: vw($padding-tb) vw($padding-lr) vw(30);
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.4s 1s;
+  position: relative;
 
   @media screen and (min-width: $large-screen-size) {
-    padding: 4rem 2rem; // Using rem for padding
+    padding: vw(50) vw($padding-lr) vw(60);
   }
 
   * {
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
     -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000;
     transform: translate3d(0, 0, 0);
+    transform: translateZ(0);
   }
 
   &.fade-in {
@@ -67,7 +65,6 @@
 
     .mixmotion-player-ui__content {
       transform: translateY(25%);
-
       @media screen and (max-width: $small-screen-size) {
         transform: translateY(18%);
       }
@@ -80,7 +77,6 @@
 
   &.inactive-mode {
     cursor: none;
-
     .buttons,
     .progress-bar,
     .mixmotion-player-ui__image,
@@ -97,16 +93,13 @@
 
       @media screen and (min-width: $small-screen-size) {
         transform: translateY(70%);
-
         .metadata--title {
           opacity: 0.9;
           transform: scale(0.8) translateY(30%);
         }
-
         .metadata--subTitle {
           transform: scale(0.9);
           opacity: 0.9;
-
           .focused:before {
             border-color: transparent;
           }
@@ -115,7 +108,7 @@
 
       .custom-link {
         color: rgba(255, 255, 255, 0.9);
-        text-shadow: #00000088 1px 0 6px;
+        text-shadow: #00000088 vw(1) 0 vw(6);
         background-color: transparent;
       }
 
@@ -130,21 +123,466 @@
 
   &__image {
     position: relative;
-    margin: 0 auto 2rem; // Using rem for margin
-    height: 40%; // Percentage-based height
-    border: 1px solid rgba(200, 200, 200, 0.5);
+    margin: 0 auto vw(24);
+    height: 45%;
+    width: auto;
+    max-width: 75%;
+    border: vw(1) solid rgba(200, 200, 200, 0.5);
     transition: transform 0.3s;
     z-index: 1;
     user-select: none;
     cursor: pointer;
 
     @media (orientation: portrait) {
-      height: 35%; // Percentage-based height
-      margin: 0 auto 2rem; // Using rem for margin
+      height: 40%;
+      margin: 0 auto 8%;
     }
 
     @media screen and (max-width: $small-screen-size) and (orientation: portrait) {
-      height: 30%; // Percentage-based height
+      height: 35%;
+    }
+
+    @media screen and (max-height: 650px) and (orientation: landscape) {
+      display: none;
+    }
+
+    @media screen and (min-width: $large-screen-size) {
+      height: 50%;
     }
   }
+
+  &__content {
+    transition: all 0.3s;
+    z-index: 1;
+
+    &.hide {
+      opacity: 0;
+    }
+  }
+
+  .metadata-wrapper {
+    width: 95%;
+    text-align: center;
+    padding: vw(4) 0;
+    margin: 0 auto vw(20); // Added bottom margin
+	transition: transform 0.3s, opacity 0.3s;
+    animation: fadeInAnim ease-in-out 0.3s forwards;
+  }
+
+  .metadata {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgb(250, 250, 250);
+    padding: vw(16) vw($padding-lr) 0;
+    text-decoration: none;
+    transition: transform 0.3s, opacity 0.3s;
+    text-shadow: #00000088 vw(1) 0 vw(8);
+
+    &--title {
+      font-size: vw(34);
+      padding-bottom: vw(12);
+	  margin-top: vw(15); 
+      font-weight: 600;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &--count {
+      font-size: vw(18);
+      margin: vw(20) auto 0;
+      pointer-events: none;
+      user-select: none;
+      color: rgba(250, 250, 250, 0.7);
+      width: 50%;
+      overflow: hidden;
+      span {
+        text-transform: capitalize;
+      }
+    }
+
+    @media screen and (min-width: $large-screen-size) {
+      padding: vw(8) vw($padding-lr);
+      &--title {
+        font-size: vw(46);
+      }
+      &--count {
+        font-size: vw(20);
+      }
+    }
+
+    @media screen and (max-width: $medium-screen-size) {
+      &--title {
+        font-size: vw(26);
+      }
+      &--count {
+        margin: vw(16) auto;
+        width: 70%;
+      }
+    }
+
+    @media screen and (max-width: $small-screen-size) {
+      &--title {
+        font-size: vw(22);
+        padding: 0;
+      }
+      &--subTitle * {
+        font-size: vw(16);
+        overflow: hidden;
+      }
+      &--subTitle,
+      &--count {
+        margin: 0 auto;
+        font-size: vw(14);
+      }
+    }
+  }
+
+  .buttons {
+    padding: vw(25) vw($padding-lr) vw(10); 
+	height: vw(60);
+    min-height: vw(60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: vw(30);
+    transition: all 0.3s;
+    border-top: vw(0.5) solid rgba(255, 255, 255, 0);
+    pointer-events: none;
+
+    .buttons__left-right {
+      width: 100%;
+    }
+
+    &__left-right,
+    &__center,
+    &__left,
+    &__right {
+      display: flex;
+      gap: vw(40);
+    }
+
+    &__left {
+      margin-right: auto;
+    }
+
+    &__center {
+      position: absolute;
+    }
+
+    &__right {
+      margin-left: auto;
+    }
+
+    @media screen and (max-width: $medium-screen-size) {
+      &__left-right,
+      &__left,
+      &__right {
+        gap: vw(38);
+      }
+    }
+
+    @media screen and (max-width: $small-screen-size) and (orientation: portrait) {
+      margin-top: vw(16);
+      height: calc(2.2 * #{vw(60)});
+      align-items: unset;
+
+      &__left-right {
+        width: unset !important;
+        margin-top: vw(80);
+        padding: 0 vw(8);
+        border-radius: vw(30);
+        height: vw(52);
+        background-color: rgba(200, 200, 200, 0.15);
+        > * {
+          gap: vw(19);
+        }
+      }
+    }
+
+    button {
+      position: relative;
+      pointer-events: auto;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: vw(2) solid transparent;
+      background-color: transparent;
+      color: white;
+      width: vw(60);
+      height: vw(60);
+      min-width: vw(54);
+      min-height: vw(54);
+      cursor: pointer;
+      transition: all 0.3s;
+      outline: none;
+
+      &.large {
+        transform: scale(1.3);
+        small {
+          transform: translateY(vw(45)) scale(0.8);
+          @media screen and (min-width: $large-screen-size) {
+            transform: translateY(200%) scale(0.8);
+          }
+        }
+      }
+
+      small {
+        position: absolute;
+        transform: translateY(vw(50));
+        left: -100%;
+        width: 300%;
+        opacity: 0;
+        transition: all 0.3s;
+        font-size: vw(24);
+        pointer-events: none;
+        user-select: none;
+
+        @media screen and (max-width: $medium-screen-size) {
+          display: none;
+        }
+        @media screen and (min-width: $large-screen-size) {
+          transform: translateY(vw(65));
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      &.focused {
+        border-color: rgb(250, 250, 250);
+        outline: none;
+
+        small {
+          opacity: 1;
+        }
+      }
+
+      @media screen and (max-width: $medium-screen-size) {
+        border: vw(3) solid transparent;
+      }
+
+      @media screen and (max-width: $small-screen-size) and (orientation: portrait) {
+        &.focused:not(.large) {
+          border: transparent !important;
+        }
+        &.large {
+          border: vw(1) solid rgb(250, 250, 250) !important;
+        }
+        &[focus-key="mixcloud"] {
+          display: none;
+        }
+      }
+
+      &.selected-dot {
+        position: relative;
+        &::before {
+          content: ".";
+          position: absolute;
+          bottom: vw(-4);
+          left: 38%;
+          font-size: vw(40);
+        }
+      }
+
+      &.selected-fill {
+        background-color: rgb(50, 50, 50);
+      }
+
+      svg {
+        font-size: vw(30);
+        @media screen and (max-width: $medium-screen-size) {
+          font-size: vw(16) !important;
+          &.fa-github,
+          &.fa-mixcloud {
+            font-size: vw(22) !important;
+          }
+        }
+
+        &.fa-play {
+          padding-left: vw(3);
+          @media screen and (max-width: $small-screen-size) {
+            padding-left: vw(2);
+          }
+        }
+
+        &.fa-backward {
+          margin-left: vw(-3);
+        }
+
+        &.fa-forward {
+          margin-left: vw(3);
+        }
+
+        &.fa-volume-xmark {
+          margin-left: vw(-2);
+        }
+
+        &.fa-github {
+          font-size: vw(40);
+          animation: shake 9s infinite;
+        }
+        &.fa-mixcloud {
+          font-size: vw(36);
+          @media screen and (max-width: $small-screen-size) {
+            font-size: vw(26) !important;
+          }
+        }
+      }
+    }
+  }
+
+  .progress-bar-wrapper {
+    min-height: calc(#{vw(70)} + #{vw(30)}); // Reduced from padding-tb
+	}
 }
+
+.custom-link {
+  text-decoration: none;
+  font-size: vw(18);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  line-height: normal;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: #0000005c vw(1) 0 vw(2);
+  background-color: transparent;
+  padding: vw(2) vw(10);
+  display: inline-block;
+  border-radius: vw(18);
+  border: vw(2) solid transparent;
+  outline: vw(1) solid transparent;
+  transition: all 0.3s;
+  position: relative;
+  user-select: none;
+  pointer-events: initial;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: vw(-10);
+    right: vw(-10);
+    bottom: vw(-10);
+    left: vw(-10);
+    border: vw(2) solid transparent;
+    border-radius: vw(60);
+    transition: all 0.3s;
+    @media screen and (max-width: $small-screen-size) {
+      border-radius: vw(100);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  &.custom-link--unfocused-border::before {
+    border-color: rgba(240, 240, 240, 0.2);
+    @media screen and (max-width: $large-screen-size) {
+      right: vw(-14);
+      left: vw(-14);
+    }
+  }
+
+  &:not(.custom-link--unfilled).match {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
+    text-shadow: none;
+  }
+
+  &.focused::before {
+    border-color: rgba(240, 240, 240, 0.9);
+    @media (hover: none), screen and (max-width: $small-screen-size) {
+      border-color: transparent;
+    }
+  }
+
+  @media screen and (max-width: $small-screen-size) {
+    font-size: vw(14);
+    input {
+      font-size: vw(16);
+    }
+  }
+
+  @media screen and (min-width: $large-screen-size) {
+    font-size: vw(20);
+    border-radius: vw(20);
+    padding: vw(4) vw(12);
+    &::before {
+      border: vw(2) solid transparent;
+      top: vw(-12);
+      right: vw(-14);
+      bottom: vw(-12);
+      left: vw(-14);
+  @media screen and (min-width: $large-screen-size) {
+        font-size: vw(20);
+        border-radius: vw(20);
+        padding: vw(4) vw(12);
+        &::before {
+          border: vw(2) solid transparent;
+          top: vw(-12);
+          right: vw(-14);
+          bottom: vw(-12);
+          left: vw(-14);
+        }
+      }
+    }
+}
+
+@keyframes fadeInAnim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  6% {
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  12% {
+    transform: rotate(-10deg) scale(1);
+  }
+  13% {
+    transform: rotate(10deg);
+  }
+  14% {
+    transform: rotate(-10deg);
+  }
+  15% {
+    transform: rotate(10deg);
+  }
+  16% {
+    transform: rotate(-10deg);
+  }
+  17% {
+    transform: rotate(10deg);
+  }
+  18% {
+    transform: rotate(-10deg);
+  }
+  19% {
+    transform: rotate(10deg);
+  }
+  20% {
+    transform: rotate(-10deg);
+  }
+  22% {
+    transform: rotate(0deg);
+  }
+	}}

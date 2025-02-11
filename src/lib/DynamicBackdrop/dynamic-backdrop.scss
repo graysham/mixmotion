@@ -1,6 +1,7 @@
 :root {
-  --app-height: 100%; // Changed from 100vh to 100%
-  --app-width: 100%; // Changed from 100vw to 100%
+  // Using percentage for container-relative sizing
+  --app-height: 100%;
+  --app-width: 100%;
 }
 
 .dynamic-backdrop {
@@ -36,7 +37,7 @@
   &__video {
     opacity: 0;
     transition: opacity;
-
+    
     &.visible {
       opacity: 1;
       transition: opacity 1.5s 0.5s;
@@ -86,7 +87,7 @@
 
     &.static {
       @include staticBackground;
-
+      
       @media (orientation: landscape) {
         width: 100%;
         height: auto;
@@ -110,6 +111,7 @@
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(0, calc(var(--app-height) - 100%), 0);
+    // Use container height for animation
+    transform: translate3d(0, calc(100% - 100%), 0);
   }
 }

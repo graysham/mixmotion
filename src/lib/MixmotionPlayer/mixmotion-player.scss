@@ -8,7 +8,6 @@ body {
 body,
 .mixmotion-player {
   background: black;
-
   :focus {
     outline: 0;
     outline-color: transparent;
@@ -17,8 +16,9 @@ body,
 }
 
 .mixmotion-player {
-  height: 100%; // Container-based height
-
+  height: 100%; // Changed from 100vh for container compatibility
+  position: relative; // Added to establish proper containing block
+  
   > * {
     position: absolute;
     top: 0;
@@ -28,12 +28,12 @@ body,
   .mixcloud-widget {
     top: unset;
     bottom: 0;
-    height: 10%; // Relative height based on container
+    height: 3.75rem; // Convert 60px to rem
     z-index: 2;
-    transform: translateY(100%);
+    transform: translateY(6.25rem); // Convert 100px to rem
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
-
+    
     &.show {
       transform: translateY(0);
       opacity: 1;
@@ -43,12 +43,11 @@ body,
   &__spinner {
     fill: white;
     margin: auto;
-    bottom: 6%; // Percentage-based positioning
+    bottom: 6%;
     right: 0;
     z-index: 3;
-    width: 5%; // Relative width based on container
-    height: 5%; // Relative height based on container
-
+    width: 3.75rem; // Convert 60px to rem
+    height: 3.75rem; // Convert 60px to rem
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
     -webkit-transform: translate3d(0, 0, 0);

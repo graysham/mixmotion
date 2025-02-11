@@ -1,14 +1,23 @@
-$buttons-height: 3.75rem; // Scaled from 60px assuming 16px base font
-$padding-tb: 2.5rem; // 40px to rem
-$padding-lr: 3.125rem; // 50px to rem
-$large-screen-size: 100rem; // 1600px / 16px
-$medium-screen-size: 75rem; // 1200px / 16px
-$small-screen-size: 37.5rem; // 600px / 16px
+// Modified vw function to handle calculations properly
+@function vw($px-vw) {
+  @return #{$px-vw / 16}rem;  // Convert to rem based on 16px base
+}
 
+// Base measurements
+$buttons-height: 60px;
+$padding-tb: 40px;
+$padding-lr: 50px;
+
+// Breakpoints
+$large-screen-size: 1600px;
+$medium-screen-size: 1200px;
+$small-screen-size: 600px;
+
+// Animations using rem units
 @keyframes fadeSlideInAnim {
   0% {
     opacity: 0;
-    transform: translateY(-4.375rem); // -70px (relative to base font size)
+    transform: translateY(-4.375rem);
   }
   100% {
     opacity: 1;
@@ -23,6 +32,15 @@ $small-screen-size: 37.5rem; // 600px / 16px
   }
   100% {
     opacity: 0;
-    transform: translateY(-4.375rem); // -70px (relative to base font size)
+    transform: translateY(-4.375rem);
+  }
+}
+
+@keyframes slideAnimDown {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 50%, 0);
   }
 }
